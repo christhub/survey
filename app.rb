@@ -38,7 +38,14 @@ delete('/surveys/delete/:id/') do
   redirect('/surveys/')
 end
 
+get('/surveys/:id/') do
+  @survey = Survey.find(params.fetch('id').to_i)
+  @questions = @survey.questions
+
+  erb(:survey)
+end
+
 get('/surveys/update/:id/') do
-    @survey = Survey.find(params.fetch('id').to_i)
-    erb(:edit_survey)
+  @survey = Survey.find(params.fetch('id').to_i)
+  erb(:edit_survey)
 end
