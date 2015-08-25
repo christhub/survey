@@ -16,8 +16,6 @@ before do
   cache_control :views, :no_cache
 end
 
-# :layout => :post
-
 get('/') do
   erb(:index, :layout => :layout)
 end
@@ -33,7 +31,14 @@ post('/surveys/') do
   redirect('/surveys/')
 end
 
-get('/survey/update/:id/') do
+delete('/surveys/delete/:id/') do
+  survey = Survey.find(params.fetch('id').to_i)
+  survey.delete
+
+  redirect('/surveys/')
+end
+
+get('/surveys/update/:id/') do
     @survey = Survey.find(params.fetch('id').to_i)
     erb(:edit_survey)
 end

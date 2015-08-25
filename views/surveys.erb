@@ -11,33 +11,29 @@
         <th width="80%">
           Survey Name
         </th>
-        <th width="10%">
+        <th width="10%" class="text-center">
           Update
         </th>
-        <th width="10%">
+        <th width="10%" class="text-center">
           Delete
         </th>
       </tr>
       <% @surveys.each do |survey| %>
         <tr>
           <td>
-            <%=survey.title%>
+            <a href="/surveys/<%=survey.id%>/"><%=survey.title%></a>
           </td>
-          <form action="/survey/update/<%=survey.id%>/" method="post">
-            <td>
-              <input type="hidden" name="_method" value="patch">
+          <td>
+            <a href="/surveys/update/<%=survey.id%>/">
               <button type="submit" name="update" class="form-control btn btn-primary btn-sm">update</button>
-            </td>
-          </form>
-          <form action="/survey/delete/<%=survey.id%>/" method="post">
+            </a>
+          </td>
+          <form action="/surveys/delete/<%=survey.id%>/" method="post">
             <td>
               <input type="hidden" name="_method" value="delete">
               <button type="submit" name="delete" class="form-control btn btn-danger btn-sm">delete</button>
             </td>
           </form>
-
-
-            <!-- <a href="/survey/delete/<%=survey.id%>/">click</a> -->
         </tr>
       <% end %>
     </table>
