@@ -5,9 +5,21 @@ also_reload('lib/**/*.rb')
 require('./lib/question')
 require('./lib/answer.rb')
 require('./lib/survey.rb')
+require 'pry'
+
+after do
+  ActiveRecord::Base.clear_active_connections!
+end
+
+before do
+  cache_control :public, :no_cache
+  cache_control :views, :no_cache
+end
+
+# :layout => :post
 
 get('/') do
-  erb(:index)
+  erb(:index, :layout => :layout)
 end
 
 get('/surveys/') do
@@ -18,5 +30,10 @@ end
 post('/surveys/') do
   survey_name = params.fetch('survey_name')
   Survey.create({title: survey_name})
-  erb(:surveys)
+  redirect('/surveys/')
+end
+
+get('/survey/update/:id/') do
+    @survey = Survey.find(params.fetch('id').to_i)
+    erb(:edit_survey)
 end
