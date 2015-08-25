@@ -1,2 +1,2 @@
-class Answer < ActiveRecord::Base
+class Question < ActiveRecord::Base
 end
