@@ -1,0 +1,63 @@
+<div class="text-center">
+  <h2><%= @survey.title %></h2>
+</div>
+<div class='text-center'>
+  <h3>Add A Question</h3>
+  <form id="question" action="/surveys/<%= @survey.id %>/questions/" method="post">
+    <label for="questions">Question: </label>
+    <input type="text" name="text" required>
+    <input type="hidden" name="survey_id" value="<%= @survey.id %>">
+    <button name="submit" type="submit" class="form-control btn-primary text-center">submit</button>
+  </form>
+</div>
+
+
+<% if @questions.any? %>
+<h2>Questions</h2>
+  <table class="table">
+    <tr>
+      <th>
+        Question Text
+      </th>
+      <th>
+        Update
+      </th>
+      <th>
+        Delete
+      </th>
+    </tr>
+    <% @questions.each do |question| %>
+  <tr>
+    <td>
+      <a href="/surveys/<%=@survey.id%>/question/<%=question.id%>/"><%=question.text%></a>
+    </td>
+    <td>
+      <a href="/surveys/<%=@survey.id%>/question/<%=question.id%>/update/">
+        <button type="submit" name="update" class="form-control btn btn-primary btn-sm">update</button></a>
+    </td>
+    <form action="/surveys/<%=@survey.id%>/question/<%=question.id%>/delete/" method="post">
+      <td>
+        <input type="hidden" name="_method" value="delete">
+        <button type="submit" name="delete" class="form-control btn btn-danger btn-sm">delete</button>
+      </td>
+    </form>
+  </tr>
+  <% end %>
+  </table>
+  <% end %>
+  <!-- <form id="answers" action="/surveys/<%= @survey.id %>/questions/answers/" method="post">
+
+    <% @questions.each do |question| %>
+      <tr>
+        <td>
+          <%= question.text %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="answer" type="hidden">Answer question here</label>
+          <input type="area" name="<%= question.id %>" value="" placeholder="your answer here" class="form-control">
+        </td>
+      </tr>
+    <% end %>
+  </form>-->
